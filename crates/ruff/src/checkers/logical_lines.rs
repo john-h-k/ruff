@@ -38,18 +38,10 @@ pub(crate) fn check_logical_lines(
 ) -> Vec<Diagnostic> {
     let mut context = LogicalLinesContext::new(settings);
 
-    #[cfg(feature = "logical_lines")]
     let should_fix_missing_whitespace = settings.rules.should_fix(Rule::MissingWhitespace);
 
-    #[cfg(not(feature = "logical_lines"))]
-    let should_fix_missing_whitespace = false;
-
-    #[cfg(feature = "logical_lines")]
     let should_fix_whitespace_before_parameters =
         settings.rules.should_fix(Rule::WhitespaceBeforeParameters);
-
-    #[cfg(not(feature = "logical_lines"))]
-    let should_fix_whitespace_before_parameters = false;
 
     let mut prev_line = None;
     let mut prev_indent_level = None;
@@ -160,8 +152,9 @@ mod tests {
     use rustpython_parser::lexer::LexResult;
     use rustpython_parser::{lexer, Mode};
 
-    use crate::rules::pycodestyle::rules::logical_lines::LogicalLines;
     use ruff_python_ast::source_code::Locator;
+
+    use crate::rules::pycodestyle::rules::logical_lines::LogicalLines;
 
     #[test]
     fn split_logical_lines() {
