@@ -2327,7 +2327,6 @@ where
                                 || (self.settings.target_version >= PythonVersion::Py37
                                     && self.ctx.future_annotations()
                                     && self.ctx.in_annotation()))
-                            && analyze::typing::is_pep585_builtin(expr, &self.ctx)
                         {
                             pyupgrade::rules::use_pep585_annotation(self, expr);
                         }
@@ -2378,7 +2377,6 @@ where
                         || (self.settings.target_version >= PythonVersion::Py37
                             && self.ctx.future_annotations()
                             && self.ctx.in_annotation()))
-                    && analyze::typing::is_pep585_builtin(expr, &self.ctx)
                 {
                     pyupgrade::rules::use_pep585_annotation(self, expr);
                 }
